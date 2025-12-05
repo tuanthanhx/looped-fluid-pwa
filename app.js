@@ -1,6 +1,6 @@
 const APPOINTMENTS_URL = "https://looped-fluid-demo.squarespace.com/appointments";
 const SHOP_URL = "https://looped-fluid-demo.squarespace.com/shop";
-const VAPID_PUBLIC_KEY = "REPLACE_WITH_YOUR_VAPID_PUBLIC_KEY";
+const VAPID_PUBLIC_KEY = "BLpWK5brPIBDoIcXQzPV2rtiR6A-ycn_YpW-LWM7UJwcnJW6w1TR9MkdfzUmKCBlwf0iqt2X46aQFQHs2eRXa54";
 
 const views = {
   home: document.getElementById("home-view"),
