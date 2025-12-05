@@ -283,6 +283,32 @@ main {
   text-align: left;
 }
 
+.update-banner {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #0f1f34;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  z-index: 998;
+}
+
+.update-banner span {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.update-banner .primary {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+}
+
 @media (max-width: 720px) {
   .hero {
     padding: 22px 18px;
