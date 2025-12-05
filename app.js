@@ -6,6 +6,22 @@ const views = {
   contact: document.getElementById("contact-view")
 };
 
+let splashStart = performance.now();
+
+function initSplash() {
+  const splash = document.getElementById("splash");
+  if (!splash) return;
+  const MIN_VISIBLE_MS = 1000;
+  window.addEventListener("load", () => {
+    const elapsed = performance.now() - splashStart;
+    const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed);
+    setTimeout(() => {
+      splash.classList.add("hide");
+      setTimeout(() => splash.remove(), 400);
+    }, remaining);
+  });
+}
+
 function wireActions() {
   const buttons = document.querySelectorAll("button[data-action]");
   buttons.forEach((btn) => {
@@ -58,4 +74,5 @@ function registerServiceWorker() {
 
 wireActions();
 hydrateRouteFromHash();
+initSplash();
 registerServiceWorker();

@@ -32,6 +32,36 @@ body {
   min-height: 100vh;
 }
 
+.splash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(88, 166, 255, 0.25), transparent 45%), var(--bg);
+  display: grid;
+  place-items: center;
+  z-index: 999;
+  transition: opacity 280ms ease, visibility 280ms ease;
+}
+
+.splash.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.splash-inner {
+  padding: 18px 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.splash-logo {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-size: 1.1rem;
+}
+
 .hidden {
   display: none;
 }
