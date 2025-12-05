@@ -1,4 +1,4 @@
-const CACHE_NAME = "looped-fluid-pwa-v9";
+const CACHE_NAME = "looped-fluid-pwa-v10";
 const OFFLINE_URL = "/offline.html";
 const ASSETS = [
   "/",
