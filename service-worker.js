@@ -33,10 +33,16 @@ self.addEventListener("fetch", (event) => {
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
 
+      const url = new URL(event.request.url);
+      const isHttp = url.protocol === "http:" || url.protocol === "https:";
+
       return fetch(event.request)
         .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          // Only cache same-origin, HTTP(S) requests to avoid chrome-extension and other schemes.
+          if (isHttp && url.origin === self.location.origin) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
           return response;
         })
         .catch(() => caches.match(OFFLINE_URL));
