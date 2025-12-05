@@ -274,6 +274,15 @@ main {
   margin-bottom: 16px;
 }
 
+.offline-body {
+  background: var(--bg);
+}
+
+.offline {
+  margin-top: 80px;
+  text-align: left;
+}
+
 @media (max-width: 720px) {
   .hero {
     padding: 22px 18px;
