@@ -1,5 +1,6 @@
 const APPOINTMENTS_URL = "https://looped-fluid-demo.squarespace.com/appointments";
 const SHOP_URL = "https://looped-fluid-demo.squarespace.com/shop";
+const VAPID_PUBLIC_KEY = "REPLACE_WITH_YOUR_VAPID_PUBLIC_KEY";
 
 const views = {
   home: document.getElementById("home-view"),
@@ -17,6 +18,9 @@ let pulling = false;
 let pullDistance = 0;
 const PULL_THRESHOLD = 80;
 const PULL_MAX = 140;
+let swRegistration = null;
+const subscriptionOutput = document.getElementById("subscription-json");
+const pushStatus = document.getElementById("push-status");
 
 function initSplash() {
   const splash = document.getElementById("splash");
@@ -46,6 +50,10 @@ function wireActions() {
       } else if (action === "refresh") {
         window.scrollTo({ top: 0, behavior: "auto" });
         setTimeout(() => window.location.reload(), 20);
+      } else if (action === "enable-push") {
+        enablePush();
+      } else if (action === "disable-push") {
+        disablePush();
       } else {
         showView("home");
       }
@@ -74,6 +82,74 @@ function hydrateRouteFromHash() {
   if (location.hash === "#contact") {
     showView("contact");
   }
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+  const rawData = atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+function renderSubscription(sub) {
+  if (!subscriptionOutput || !pushStatus) return;
+  if (sub) {
+    subscriptionOutput.value = JSON.stringify(sub, null, 2);
+    pushStatus.textContent = "Subscribed. Copy this JSON to send a test push.";
+  } else {
+    subscriptionOutput.value = "";
+    pushStatus.textContent = "Not subscribed.";
+  }
+}
+
+async function enablePush() {
+  if (!("Notification" in window) || !("serviceWorker" in navigator)) {
+    if (pushStatus) pushStatus.textContent = "Push not supported on this device.";
+    return;
+  }
+
+  const permission = await Notification.requestPermission();
+  if (permission !== "granted") {
+    if (pushStatus) pushStatus.textContent = "Permission denied.";
+    return;
+  }
+
+  const registration = swRegistration || (await navigator.serviceWorker.ready);
+  if (!registration) {
+    if (pushStatus) pushStatus.textContent = "Service worker not ready.";
+    return;
+  }
+
+  const existing = await registration.pushManager.getSubscription();
+  if (existing) {
+    renderSubscription(existing);
+    return;
+  }
+
+  try {
+    const sub = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+    });
+    renderSubscription(sub);
+  } catch (err) {
+    console.error("Push subscribe failed", err);
+    if (pushStatus) pushStatus.textContent = "Subscribe failed. Check VAPID key.";
+  }
+}
+
+async function disablePush() {
+  const registration = swRegistration || (await navigator.serviceWorker.ready);
+  if (!registration) return;
+  const sub = await registration.pushManager.getSubscription();
+  if (sub) {
+    await sub.unsubscribe();
+  }
+  renderSubscription(null);
 }
 
 function initPullToRefresh() {
@@ -141,6 +217,10 @@ function registerServiceWorker() {
     window.scrollTo({ top: 0, behavior: "auto" });
     navigator.serviceWorker
       .register("/service-worker.js")
+      .then((reg) => {
+        swRegistration = reg;
+        reg.pushManager.getSubscription().then((sub) => renderSubscription(sub));
+      })
       .catch((err) => console.error("SW registration failed", err));
 
     navigator.serviceWorker.addEventListener("controllerchange", () => {

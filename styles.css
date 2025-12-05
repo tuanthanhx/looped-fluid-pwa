@@ -323,6 +323,37 @@ main {
   min-width: 140px;
 }
 
+.notif-panel {
+  margin-top: 18px;
+}
+
+.notif-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 10px 0 12px;
+}
+
+.subscription-label {
+  display: block;
+  margin: 8px 0 6px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+textarea#subscription-json {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  padding: 10px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
 @media (max-width: 720px) {
   .hero {
     padding: 22px 18px;

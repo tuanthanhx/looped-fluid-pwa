@@ -28,7 +28,7 @@
       <div class="hero-content">
         <div class="hero-copy">
           <div class="badge">PWA</div>
-          <h1>Looped Fluid v10</h1>
+          <h1>Looped Fluid v11</h1>
           <p class="lead">Book your next cut, shop essentials, and keep everything one tap away. Install the app for a faster way to loop in.</p>
           <div class="cta-row">
             <button class="primary" data-action="home">Home</button>
@@ -65,6 +65,19 @@
           </ul>
         </div>
       </section>
+
+      <section class="panel notif-panel">
+        <div class="card-label">Push (test)</div>
+        <h2>Test push notifications</h2>
+        <p class="muted">Enable to get a test notification. iOS requires iOS 16.4+ and the PWA added to Home Screen.</p>
+        <div class="notif-actions">
+          <button class="primary" data-action="enable-push">Enable notifications</button>
+          <button class="ghost" data-action="disable-push">Disable</button>
+          <div id="push-status" class="muted">Waiting for permission…</div>
+        </div>
+        <label class="subscription-label" for="subscription-json">Subscription (send this to your server or use with web-push CLI):</label>
+        <textarea id="subscription-json" readonly></textarea>
+      </section>
     </main>
     <div class="footer-bar">
       <button class="ghost" data-action="refresh">Refresh</button>
@@ -74,7 +87,7 @@
   <div class="page contact-screen hidden" id="contact-view">
     <header class="hero contact-hero">
       <div class="hero-copy">
-        <div class="badge">Contact v10</div>
+        <div class="badge">Contact v11</div>
         <h1>Get in touch</h1>
         <p class="lead">Swap these placeholders with your real shop details.</p>
         <div class="cta-row">
