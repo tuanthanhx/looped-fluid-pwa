@@ -6,9 +6,7 @@ const views = {
   contact: document.getElementById("contact-view")
 };
 
-const updateBanner = document.getElementById("update-banner");
 let refreshing = false;
-let updateNotified = false;
 let splashStart = performance.now();
 
 function initSplash() {
@@ -36,8 +34,6 @@ function wireActions() {
         window.location.href = SHOP_URL;
       } else if (action === "contact") {
         showView("contact");
-      } else if (action === "refresh") {
-        window.location.reload();
       } else {
         showView("home");
       }
@@ -68,12 +64,6 @@ function hydrateRouteFromHash() {
   }
 }
 
-function showUpdateBanner() {
-  if (!updateBanner || updateNotified) return;
-  updateNotified = true;
-  updateBanner.classList.remove("hidden");
-}
-
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
   window.addEventListener("load", () => {
@@ -85,28 +75,6 @@ function registerServiceWorker() {
       if (refreshing) return;
       refreshing = true;
       window.location.reload();
-    });
-
-    navigator.serviceWorker.getRegistration().then((reg) => {
-      if (!reg) return;
-
-      // If there's already a waiting worker (arrived while the tab was closed), notify once.
-      if (reg.waiting && navigator.serviceWorker.controller) {
-        showUpdateBanner();
-      }
-
-      reg.addEventListener("updatefound", () => {
-        const newWorker = reg.installing;
-        if (!newWorker) return;
-        newWorker.addEventListener("statechange", () => {
-          if (
-            newWorker.state === "installed" &&
-            navigator.serviceWorker.controller
-          ) {
-            showUpdateBanner();
-          }
-        });
-      });
     });
   });
 }
