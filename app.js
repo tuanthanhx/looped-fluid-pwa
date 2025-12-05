@@ -6,6 +6,10 @@ const views = {
   contact: document.getElementById("contact-view")
 };
 
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
 let refreshing = false;
 let splashStart = performance.now();
 let pullStartY = 0;
@@ -39,6 +43,9 @@ function wireActions() {
         window.location.href = SHOP_URL;
       } else if (action === "contact") {
         showView("contact");
+      } else if (action === "refresh") {
+        window.scrollTo({ top: 0, behavior: "auto" });
+        setTimeout(() => window.location.reload(), 20);
       } else {
         showView("home");
       }
@@ -131,6 +138,7 @@ function initPullToRefresh() {
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
   window.addEventListener("load", () => {
+    window.scrollTo({ top: 0, behavior: "auto" });
     navigator.serviceWorker
       .register("/service-worker.js")
       .catch((err) => console.error("SW registration failed", err));

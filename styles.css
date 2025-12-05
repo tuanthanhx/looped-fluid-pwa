@@ -313,6 +313,16 @@ main {
   text-align: left;
 }
 
+.footer-bar {
+  margin: 16px 0 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-bar .ghost {
+  min-width: 140px;
+}
+
 @media (max-width: 720px) {
   .hero {
     padding: 22px 18px;
