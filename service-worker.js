@@ -1,4 +1,4 @@
-const CACHE_NAME = "looped-fluid-pwa-v11";
+const CACHE_NAME = "looped-fluid-pwa-v12";
 const OFFLINE_URL = "/offline.html";
 const ASSETS = [
   "/",
@@ -65,8 +65,13 @@ self.addEventListener("push", (event) => {
     body: payload.body || "You have a new update.",
     icon: "/assets/icons/app-icon-192.png",
     badge: "/assets/icons/app-icon-192.png",
-    data: { url: payload.url || "/" }
+    data: {}
   };
+
+  const targetUrl =
+    payload.url ||
+    `/#notice?title=${encodeURIComponent(title)}&body=${encodeURIComponent(options.body)}`;
+  options.data.url = targetUrl;
 
   event.waitUntil(self.registration.showNotification(title, options));
 });

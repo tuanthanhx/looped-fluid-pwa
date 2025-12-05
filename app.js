@@ -4,7 +4,8 @@ const VAPID_PUBLIC_KEY = "BLpWK5brPIBDoIcXQzPV2rtiR6A-ycn_YpW-LWM7UJwcnJW6w1TR9M
 
 const views = {
   home: document.getElementById("home-view"),
-  contact: document.getElementById("contact-view")
+  contact: document.getElementById("contact-view"),
+  notice: document.getElementById("notice-view")
 };
 
 if ("scrollRestoration" in history) {
@@ -21,6 +22,8 @@ const PULL_MAX = 140;
 let swRegistration = null;
 const subscriptionOutput = document.getElementById("subscription-json");
 const pushStatus = document.getElementById("push-status");
+const noticeTitleEl = document.getElementById("notice-title");
+const noticeBodyEl = document.getElementById("notice-body");
 
 function initSplash() {
   const splash = document.getElementById("splash");
@@ -72,6 +75,8 @@ function showView(target) {
   });
   if (target === "contact") {
     history.replaceState(null, "", "#contact");
+  } else if (target === "notice") {
+    history.replaceState(null, "", "#notice");
   } else {
     history.replaceState(null, "", location.pathname);
   }
@@ -79,8 +84,14 @@ function showView(target) {
 }
 
 function hydrateRouteFromHash() {
-  if (location.hash === "#contact") {
+  if (location.hash.startsWith("#contact")) {
     showView("contact");
+  } else if (location.hash.startsWith("#notice")) {
+    const params = new URLSearchParams(location.hash.split("?")[1] || "");
+    const title = params.get("title") || "Notification";
+    const body = params.get("body") || "Opened from a notification.";
+    renderNotice(title, body);
+    showView("notice");
   }
 }
 
@@ -150,6 +161,11 @@ async function disablePush() {
     await sub.unsubscribe();
   }
   renderSubscription(null);
+}
+
+function renderNotice(title, body) {
+  if (noticeTitleEl) noticeTitleEl.textContent = title;
+  if (noticeBodyEl) noticeBodyEl.textContent = body;
 }
 
 function initPullToRefresh() {
