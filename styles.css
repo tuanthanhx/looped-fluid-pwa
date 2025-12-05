@@ -32,6 +32,10 @@ body {
   min-height: 100vh;
 }
 
+.hidden {
+  display: none;
+}
+
 .page {
   max-width: 1100px;
   margin: 0 auto;
@@ -162,6 +166,10 @@ main {
   margin: 6px 0 8px;
 }
 
+.muted {
+  color: var(--muted);
+}
+
 .card p {
   margin: 0;
   color: var(--muted);
@@ -211,6 +219,29 @@ main {
 
 .card.tall {
   grid-column: span 2;
+}
+
+.contact {
+  margin-top: 20px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.contact-grid h3 {
+  margin: 0 0 4px;
+}
+
+.contact-screen {
+  min-height: 100vh;
+}
+
+.contact-hero {
+  margin-bottom: 16px;
 }
 
 @media (max-width: 720px) {

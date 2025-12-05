@@ -11,17 +11,18 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <div class="page">
+  <div class="page" id="home-view">
     <header class="hero" id="home">
       <div class="hero-content">
         <div class="hero-copy">
           <div class="badge">PWA</div>
-          <h1>Looped Fluid</h1>
+          <h1>Looped Fluid 3</h1>
           <p class="lead">Book your next cut, shop essentials, and keep everything one tap away. Install the app for a faster way to loop in.</p>
           <div class="cta-row">
             <button class="primary" data-action="home">Home</button>
             <button class="ghost" data-action="appointments">Appointments</button>
             <button class="ghost" data-action="shop">Shop</button>
+            <button class="ghost" data-action="contact">Contact</button>
           </div>
         </div>
         <div class="hero-media" aria-label="Looped Fluid studio hero image">
@@ -52,6 +53,40 @@
           </ul>
         </div>
       </section>
+    </main>
+  </div>
+
+  <div class="page contact-screen hidden" id="contact-view">
+    <header class="hero contact-hero">
+      <div class="hero-copy">
+        <div class="badge">Contact</div>
+        <h1>Get in touch</h1>
+        <p class="lead">Swap these placeholders with your real shop details.</p>
+        <div class="cta-row">
+          <button class="primary" data-action="home">Back to Home</button>
+          <button class="ghost" data-action="appointments">Book now</button>
+        </div>
+      </div>
+    </header>
+    <main class="panel contact">
+      <div class="contact-grid">
+        <div>
+          <h3>Call</h3>
+          <p class="muted">+1 (555) 123-4567</p>
+        </div>
+        <div>
+          <h3>Email</h3>
+          <p class="muted">hello@loopedfluid.com</p>
+        </div>
+        <div>
+          <h3>Address</h3>
+          <p class="muted">123 Fade St, Suite 10<br>Your City, ST 00000</p>
+        </div>
+        <div>
+          <h3>Hours</h3>
+          <p class="muted">Mon–Sat: 9:00a–7:00p<br>Sun: 11:00a–4:00p</p>
+        </div>
+      </div>
     </main>
   </div>
 

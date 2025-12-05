@@ -1,6 +1,11 @@
 const APPOINTMENTS_URL = "https://looped-fluid-demo.squarespace.com/appointments";
 const SHOP_URL = "https://looped-fluid-demo.squarespace.com/shop";
 
+const views = {
+  home: document.getElementById("home-view"),
+  contact: document.getElementById("contact-view")
+};
+
 function wireActions() {
   const buttons = document.querySelectorAll("button[data-action]");
   buttons.forEach((btn) => {
@@ -10,11 +15,36 @@ function wireActions() {
         window.location.href = APPOINTMENTS_URL;
       } else if (action === "shop") {
         window.location.href = SHOP_URL;
+      } else if (action === "contact") {
+        showView("contact");
       } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        showView("home");
       }
     });
   });
+}
+
+function showView(target) {
+  Object.entries(views).forEach(([key, el]) => {
+    if (!el) return;
+    if (key === target) {
+      el.classList.remove("hidden");
+    } else {
+      el.classList.add("hidden");
+    }
+  });
+  if (target === "contact") {
+    history.replaceState(null, "", "#contact");
+  } else {
+    history.replaceState(null, "", location.pathname);
+  }
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function hydrateRouteFromHash() {
+  if (location.hash === "#contact") {
+    showView("contact");
+  }
 }
 
 function registerServiceWorker() {
@@ -27,4 +57,5 @@ function registerServiceWorker() {
 }
 
 wireActions();
+hydrateRouteFromHash();
 registerServiceWorker();
