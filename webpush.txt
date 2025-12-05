@@ -16,11 +16,11 @@ npx web-push send-notification \
   --vapid-pubkey="BLpWK5brPIBDoIcXQzPV2rtiR6A-ycn_YpW-LWM7UJwcnJW6w1TR9MkdfzUmKCBlwf0iqt2X46aQFQHs2eRXa54" \
   --vapid-pvtkey="wwyRKkI8C3PEr6QepVDZbkEeisJSnANs5Xnfh-Wxm0A"
 
-  npx web-push send-notification \
+npx web-push send-notification \
   --endpoint="https://web.push.apple.com/QKIn6Md1XK_QGom-JUJfhR9p7k_12W74Q3wf1bo2neVx95c7rZZWsWUcZWM1t1yeenvXzSM2FYXgxuIlOQEBNs4yH_Ebos9pzZV9kXc69mHrAzoluFJ-DtDTiPo1sGhuSy-MrXWTlycsTbF9_9LG0i6WhHof_ZbuSCNEHrYk9RI" \
   --key="BAxoFRWKqY16pb12HCiNNUdjIu8pr9G6vtacUAJmQCSi4geI7mhhY4boyAui-PMnVD4NZSaBrgjaBElsHWghVSE" \
   --auth="_m6Uwjjx7RxkIEPcGOufRQ" \
-  --payload='{"title":"Xin Chao 04","body":"This is my test push 04","url":"https://looped-fluid-pwa.vercel.app/"}' \
+  --payload='{"title":"Hello","body":"Details inside"}' \
   --vapid-subject="mailto:incrxi@gmail.com" \
   --vapid-pubkey="BLpWK5brPIBDoIcXQzPV2rtiR6A-ycn_YpW-LWM7UJwcnJW6w1TR9MkdfzUmKCBlwf0iqt2X46aQFQHs2eRXa54" \
   --vapid-pvtkey="wwyRKkI8C3PEr6QepVDZbkEeisJSnANs5Xnfh-Wxm0A"
