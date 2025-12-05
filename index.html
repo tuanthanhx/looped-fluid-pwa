@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Looped Fluid • PWA</title>
+  <meta name="description" content="Installable PWA for Looped Fluid — book appointments and shop in one tap.">
+  <meta name="theme-color" content="#1f6feb">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/assets/icons/app-icon-192.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero" id="home">
+      <div class="badge">PWA</div>
+      <h1>Looped Fluid</h1>
+      <p class="lead">Book your next cut, shop essentials, and keep everything one tap away. Install the app for a faster way to loop in.</p>
+      <div class="cta-row">
+        <button class="primary" data-action="home">Home</button>
+        <button class="ghost" data-action="appointments">Appointments</button>
+        <button class="ghost" data-action="shop">Shop</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel grid">
+        <div class="card tall">
+          <div class="card-label">Studio</div>
+          <h2>Fresh fades, sharp style</h2>
+          <p>Tap Appointments to jump to our booking page. Add this PWA to your Home Screen to keep it just a swipe away.</p>
+        </div>
+        <div class="card photo shimmering" aria-label="Placeholder hero image"></div>
+        <div class="card photo gradient" aria-label="Placeholder feature image"></div>
+        <div class="card">
+          <div class="card-label">Shop</div>
+          <h3>Products curated by the team</h3>
+          <p>Hit Shop to view the latest drops and grooming picks on our main site.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Install Tips</div>
+          <ul>
+            <li>Android: open in Chrome, tap menu → <strong>Add to Home screen</strong>.</li>
+            <li>iOS: open in Safari, tap Share → <strong>Add to Home Screen</strong>.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
