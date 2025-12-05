@@ -8,6 +8,7 @@ const views = {
 
 const updateBanner = document.getElementById("update-banner");
 let refreshing = false;
+let updateNotified = false;
 let splashStart = performance.now();
 
 function initSplash() {
@@ -68,7 +69,8 @@ function hydrateRouteFromHash() {
 }
 
 function showUpdateBanner() {
-  if (!updateBanner) return;
+  if (!updateBanner || updateNotified) return;
+  updateNotified = true;
   updateBanner.classList.remove("hidden");
 }
 
@@ -87,6 +89,12 @@ function registerServiceWorker() {
 
     navigator.serviceWorker.getRegistration().then((reg) => {
       if (!reg) return;
+
+      // If there's already a waiting worker (arrived while the tab was closed), notify once.
+      if (reg.waiting && navigator.serviceWorker.controller) {
+        showUpdateBanner();
+      }
+
       reg.addEventListener("updatefound", () => {
         const newWorker = reg.installing;
         if (!newWorker) return;
