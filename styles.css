@@ -300,6 +300,10 @@ main {
   min-height: 100vh;
 }
 
+.notice-screen {
+  min-height: 100vh;
+}
+
 .contact-hero {
   margin-bottom: 16px;
 }
