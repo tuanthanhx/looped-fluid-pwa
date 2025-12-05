@@ -47,6 +47,28 @@ body {
   backdrop-filter: blur(4px);
 }
 
+.hero-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: center;
+  gap: 18px;
+}
+
+.hero-media {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .hero h1 {
   font-size: 2.2rem;
   margin: 8px 0 8px;
@@ -198,6 +220,10 @@ main {
 
   .hero h1 {
     font-size: 1.8rem;
+  }
+
+  .hero-media {
+    max-height: 240px;
   }
 
   .card.tall {
