@@ -1,4 +1,4 @@
-const CACHE_NAME = "looped-fluid-pwa-v1";
+const CACHE_NAME = "looped-fluid-pwa-v2";
 const OFFLINE_URL = "/";
 const ASSETS = [
   "/",
@@ -7,7 +7,8 @@ const ASSETS = [
   "/app.js",
   "/manifest.webmanifest",
   "/assets/icons/app-icon-192.png",
-  "/assets/icons/app-icon-512.png"
+  "/assets/icons/app-icon-512.png",
+  "/assets/images/looped-hero.webp"
 ];
 
 self.addEventListener("install", (event) => {
