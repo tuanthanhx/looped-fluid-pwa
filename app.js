@@ -8,6 +8,11 @@ const views = {
 
 let refreshing = false;
 let splashStart = performance.now();
+let pullStartY = 0;
+let pulling = false;
+let pullDistance = 0;
+const PULL_THRESHOLD = 80;
+const PULL_MAX = 140;
 
 function initSplash() {
   const splash = document.getElementById("splash");
@@ -64,6 +69,65 @@ function hydrateRouteFromHash() {
   }
 }
 
+function initPullToRefresh() {
+  const ptr = document.getElementById("ptr");
+  const root = document.scrollingElement || document.documentElement;
+  if (!ptr) return;
+
+  const applyTransform = (dist) => {
+    const translate = Math.max(0, dist / 2);
+    document.body.style.transform = `translateY(${translate}px)`;
+    ptr.classList.toggle("show", dist > 10);
+    ptr.querySelector(".ptr-icon").textContent = dist > PULL_THRESHOLD ? "↻" : "↓";
+  };
+
+  const reset = () => {
+    pulling = false;
+    pullDistance = 0;
+    document.body.style.transform = "";
+    ptr.classList.remove("show");
+  };
+
+  window.addEventListener(
+    "touchstart",
+    (e) => {
+      if (root.scrollTop !== 0) return;
+      pulling = true;
+      pullStartY = e.touches[0].clientY;
+      pullDistance = 0;
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!pulling) return;
+      const currentY = e.touches[0].clientY;
+      pullDistance = Math.min(Math.max(0, currentY - pullStartY), PULL_MAX);
+      if (pullDistance > 0) {
+        e.preventDefault();
+        applyTransform(pullDistance);
+      }
+    },
+    { passive: false }
+  );
+
+  window.addEventListener(
+    "touchend",
+    () => {
+      if (!pulling) return;
+      if (pullDistance >= PULL_THRESHOLD) {
+        reset();
+        window.location.reload();
+      } else {
+        reset();
+      }
+    },
+    { passive: true }
+  );
+}
+
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
   window.addEventListener("load", () => {
@@ -82,4 +146,5 @@ function registerServiceWorker() {
 wireActions();
 hydrateRouteFromHash();
 initSplash();
+initPullToRefresh();
 registerServiceWorker();

@@ -62,6 +62,36 @@ body {
   font-size: 1.1rem;
 }
 
+.ptr {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, -40px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(15, 31, 52, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow);
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 160ms ease, transform 160ms ease;
+  z-index: 997;
+}
+
+.ptr.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.ptr-icon {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--accent-strong);
+}
+
 .hidden {
   display: none;
 }
